@@ -5,6 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UsersService } from 'src/modules/users/service/users.service';
 import { RoutineTagRelationsService } from './routine-tag-relations.service';
 import { TagsService } from 'src/modules/tags/service/tags.service';
+import { BaseRoutineDto } from '../dto/baseRoutine.dto';
+import { RoutineDetailsService } from './routine-details.service';
+import { RoutineSkinRelationsService } from './routine-skin-relations.service';
 
 @Injectable()
 export class RoutinesService {
@@ -13,7 +16,7 @@ export class RoutinesService {
     private readonly routineRepository: Repository<Routine>,
     private readonly usersService: UsersService,
     private routineDetailsService: RoutineDetailsService,
-    private routineSkinRelationService: RoutineSkinRelationService,
+    private routineSkinRelationsService: RoutineSkinRelationsService,
     private routineTagRelationsService: RoutineTagRelationsService,
     private tagsService: TagsService,
     private readonly dataSource: DataSource,
@@ -22,20 +25,18 @@ export class RoutinesService {
   // 루틴 등록
   async createRoutine(
     user_key: number,
-    routine_name: string,
-    steps: number,
-    for_gender: 'M' | 'F' | 'A',
-    for_skin: number,
-    for_age: number,
-    for_problem: Array<string>,
-    details: Array<{
-      step_number: number;
-      item_key: number;
-      step_name: string;
-      description: string;
-    }>,
-    tags: Array<string>,
+    baseRoutineDto: BaseRoutineDto,
   ): Promise<Routine> {
+    const {
+      routine_name,
+      steps,
+      for_gender,
+      for_skin,
+      for_age,
+      for_problem,
+      details,
+      tags,
+    } = baseRoutineDto;
     const user = await this.usersService.findOneByKey(user_key);
     if (!user) {
       throw new NotFoundException('해당 유저를 찾을 수 없습니다.');
@@ -53,13 +54,13 @@ export class RoutinesService {
         for_age,
         price_total: 0,
       });
-      await this.routineSkinRelationService.addRoutineSkinRelation(
+      await this.routineSkinRelationsService.addRoutineSkinRelation(
         newRoutine.routine_key,
         for_skin,
         transactionalEntityManager,
       );
       for (const problem of for_problem) {
-        await this.routineSkinRelationService.addRoutineSkinRelation(
+        await this.routineSkinRelationsService.addRoutineSkinRelation(
           newRoutine.routine_key,
           Number(problem),
           transactionalEntityManager,
@@ -67,7 +68,7 @@ export class RoutinesService {
       }
       for (const detail of details) {
         console.log(detail);
-        await this.routineDetailService.createRoutineDetail(
+        await this.routineDetailsService.createRoutineDetail(
           detail.step_number,
           newRoutine.routine_key,
           detail.item_key,
@@ -114,7 +115,6 @@ export class RoutinesService {
     page: number = 1,
     size: number = 10,
     filter?: { [key: string]: any },
-    // ): Promise<{ routine: Routine, attr_keys: number[] }[]> {
   ): Promise<Routine[]> {
     const queryBuilder = this.routineRepository.createQueryBuilder('routine');
 
@@ -141,7 +141,6 @@ export class RoutinesService {
     queryBuilder.leftJoin('routine.user', 'user').addSelect(['user.username']);
 
     // Join with routine_skin_relation to get attr_key values
-    // queryBuilder.leftJoinAndSelect('routine.routine_skin_relations', 'routineSkinRelation')
     queryBuilder
       .leftJoin('routine.routine_skin_relations', 'routineSkinRelation')
       .addSelect('routineSkinRelation.attr_key');
@@ -179,14 +178,17 @@ export class RoutinesService {
   async updateRoutine(
     user_key: number,
     routine_key: number,
-    routine_name: string,
-    steps: number,
-    for_age: number,
-    for_gender: 'M' | 'F' | 'A',
-    for_skin: number,
-    for_problem: Array<string>,
-    details: any,
+    baseRoutineDto: BaseRoutineDto,
   ): Promise<Routine> {
+    const {
+      routine_name,
+      steps,
+      for_gender,
+      for_age,
+      for_skin,
+      for_problem,
+      details,
+    } = baseRoutineDto;
     return this.dataSource.transaction(async (transactionalEntityManager) => {
       {
         isolation: 'READ COMMITTED';
@@ -213,17 +215,17 @@ export class RoutinesService {
         },
       );
 
-      await this.routineSkinRelationService.deleteRoutineSkinRelation(
+      await this.routineSkinRelationsService.deleteRoutineSkinRelation(
         routine_key,
         transactionalEntityManager,
       );
-      await this.routineSkinRelationService.addRoutineSkinRelation(
+      await this.routineSkinRelationsService.addRoutineSkinRelation(
         routine_key,
         for_skin,
         transactionalEntityManager,
       );
       for (const problem of for_problem) {
-        await this.routineSkinRelationService.addRoutineSkinRelation(
+        await this.routineSkinRelationsService.addRoutineSkinRelation(
           routine_key,
           Number(problem),
           transactionalEntityManager,
@@ -231,7 +233,7 @@ export class RoutinesService {
       }
       if (steps <= old_steps) {
         for (let i = 1; i <= steps; i++) {
-          await this.routineDetailService.updateRoutineDetail(
+          await this.routineDetailsService.updateRoutineDetail(
             i,
             routine_key,
             details[i - 1].item_key,
@@ -242,12 +244,15 @@ export class RoutinesService {
         }
         if (steps < old_steps) {
           for (let i = steps + 1; i <= old_steps; i++) {
-            await this.routineDetailService.deleteRoutineDetail(i, routine_key);
+            await this.routineDetailsService.deleteRoutineDetail(
+              i,
+              routine_key,
+            );
           }
         }
       } else {
         for (let i = 1; i <= old_steps; i++) {
-          await this.routineDetailService.updateRoutineDetail(
+          await this.routineDetailsService.updateRoutineDetail(
             i,
             routine_key,
             details[i - 1].item_key,
@@ -257,7 +262,7 @@ export class RoutinesService {
           );
         }
         for (let i = old_steps + 1; i <= steps; i++) {
-          await this.routineDetailService.createRoutineDetail(
+          await this.routineDetailsService.createRoutineDetail(
             i,
             routine_key,
             details[i - 1].item_key,

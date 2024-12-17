@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityManager, Repository } from 'typeorm';
 import { RoutineDetail } from '../entity/routine-detail.entity';
+import { ItemsService } from 'src/modules/items/service/items.service';
 
 @Injectable()
 export class RoutineDetailsService {

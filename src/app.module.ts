@@ -12,8 +12,6 @@ import { ReviewsModule } from './modules/reviews/reviews.module';
 import { SkinAttributesModule } from './modules/skin-attributes/skin-attributes.module';
 import { ItemsModule } from './modules/items/items.module';
 import { OrderDetailsModule } from './modules/order-details/order-details.module';
-import { RoutineTagRelationsModule } from './modules/routine-tag-relations/routine-tag-relations.module';
-import { RoutineSkinRelationsModule } from './modules/routine-skin-relations/routine-skin-relations.module';
 import { ItemOrdersModule } from './modules/item-orders/item-orders.module';
 import { TagsModule } from './modules/tags/tags.module';
 import { Address } from './modules/addresses/entity/address.entity';
@@ -24,13 +22,11 @@ import { SkinAttribute } from './modules/skin-attributes/entity/skin-attribute.e
 import { Item } from './modules/items/entity/item.entity';
 import { OrderDetail } from './modules/order-details/entity/order-detail.entity';
 import { RoutineTagRelation } from './modules/routines/entity/routine-tag-relation.entity';
-import { RoutineSkinRelation } from './modules/routine-skin-relations/entity/routine-skin-relation.entity';
+import { RoutineSkinRelation } from './modules/routines/entity/routine-skin-relation.entity';
 import { ItemOrder } from './modules/item-orders/entity/item-order.entity';
 import { Tag } from './modules/tags/entity/tag.entity';
-import { RoutineDetailsModule } from './modules/routine-details/routine-details.module';
 import { RoutineDetail } from './modules/routines/entity/routine-detail.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { RoutineSkinRelationsService } from './modules/routine-skin-relation-service/service/routine-skin-relations.service';
 
 @Module({
   imports: [
@@ -74,13 +70,10 @@ import { RoutineSkinRelationsService } from './modules/routine-skin-relation-ser
     SkinAttributesModule,
     ItemsModule,
     OrderDetailsModule,
-    RoutineTagRelationsModule,
-    RoutineSkinRelationsModule,
     ItemOrdersModule,
     TagsModule,
-    RoutineDetailsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RoutineSkinRelationsService],
+  providers: [AppService, ConfigService],
 })
 export class AppModule {}

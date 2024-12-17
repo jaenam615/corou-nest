@@ -4,6 +4,7 @@ import { Address } from '../../addresses/entity/address.entity';
 import { ItemOrder } from '../../item-orders/entity/item-order.entity';
 import { Review } from '../../reviews/entity/review.entity';
 import { Cart } from '../../carts/entity/cart.entity';
+import { Gender } from 'src/common/enum/gender.enum';
 
 @Entity('user')
 export class User {
@@ -23,7 +24,7 @@ export class User {
   birth_date!: Date;
 
   @Column({ type: 'char', length: 1 })
-  gender!: 'M' | 'F';
+  gender!: Gender;
 
   @OneToMany(() => Routine, (routine) => routine.user)
   routines?: Routine[];

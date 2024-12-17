@@ -8,9 +8,10 @@ import {
 } from 'typeorm';
 import { Review } from '../../reviews/entity/review.entity';
 import { RoutineDetail } from './routine-detail.entity';
-import { RoutineSkinRelation } from '../../routine-skin-relations/entity/routine-skin-relation.entity';
+import { RoutineSkinRelation } from './routine-skin-relation.entity';
 import { RoutineTagRelation } from './routine-tag-relation.entity';
 import { User } from '../../users/entity/user.entity';
+import { Gender } from 'src/common/enum/gender.enum';
 
 @Entity('routine')
 export class Routine {
@@ -24,13 +25,13 @@ export class Routine {
   steps!: number;
 
   @Column({ type: 'char', length: 1 })
-  for_gender!: 'M' | 'F' | 'A';
+  for_gender!: Gender;
 
   @Column({ type: 'int' })
   for_age!: number;
 
   @Column({ type: 'float', default: 0 })
-  average_rating!: number;
+  average_rating?: number;
 
   @Column({ type: 'int' })
   price_total!: number;

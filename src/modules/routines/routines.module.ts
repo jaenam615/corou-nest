@@ -8,19 +8,48 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Item } from '../items/entity/item.entity';
 import { TagsService } from '../tags/service/tags.service';
 import { TagsModule } from '../tags/tags.module';
+import { RoutineTagRelationsService } from './service/routine-tag-relations.service';
+import { ItemsService } from '../items/service/items.service';
+import { ItemsModule } from '../items/items.module';
+import { SkinAttributesService } from '../skin-attributes/service/skin-attributes.service';
+import { SkinAttributesModule } from '../skin-attributes/skin-attributes.module';
+import { SkinAttribute } from '../skin-attributes/entity/skin-attribute.entity';
+import { RoutineDetail } from './entity/routine-detail.entity';
+import { User } from '../users/entity/user.entity';
+import { UsersModule } from '../users/users.module';
+import { UsersService } from '../users/service/users.service';
+import { RoutineSkinRelation } from './entity/routine-skin-relation.entity';
+import { RoutineSkinRelationsService } from './service/routine-skin-relations.service';
+import { RoutinesController } from './controller/routines.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Routine, Tag, RoutineTagRelation]),
+    TypeOrmModule.forFeature([
+      User,
+      Routine,
+      Tag,
+      RoutineTagRelation,
+      RoutineSkinRelation,
+      Item,
+      SkinAttribute,
+      RoutineDetail,
+    ]),
+    UsersModule,
     TagsModule,
     ItemsModule,
+    SkinAttributesModule,
   ],
   providers: [
+    UsersService,
     RoutinesService,
     RoutineDetailsService,
     RoutineTagRelationsService,
+    RoutineSkinRelationsService,
+    SkinAttributesService,
     TagsService,
     ItemsService,
   ],
+  controllers: [RoutinesController],
+  exports: [RoutinesService],
 })
 export class RoutinesModule {}

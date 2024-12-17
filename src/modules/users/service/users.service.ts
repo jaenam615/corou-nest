@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { Gender } from '../enum/gender.enum';
+import { Gender } from '../../../common/enum/gender.enum';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
