@@ -8,12 +8,12 @@ import { AuthService } from '../service/auth.service';
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
   ) {}
 
   @Post('/register')
   @ApiOperation({ summary: '회원가입' })
-  async createUser(@Body body: CreateUserDto) {
+  async createUser(@Body() body: CreateUserDto) {
     try {
       await this.authService.register(body);
 
@@ -22,7 +22,12 @@ export class UsersController {
         message: '회원가입 성공',
       };
     } catch (error) {
-      if (error instanceof  )
+      if (error instanceof Error) {
+        return {
+          success: false,
+          message: error.message,
+        };
+      }
     }
   }
 }
