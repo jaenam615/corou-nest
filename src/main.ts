@@ -3,8 +3,8 @@ import { AppModule } from './app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import express from 'express';
-import http from 'http';
+import * as express from 'express';
+import * as http from 'http';
 import https from 'https';
 import 'tsconfig-paths/register';
 
@@ -41,6 +41,10 @@ async function bootstrap() {
 
   await app.init();
 
-  http.createServer(server).listen(process.env.PORT ?? 3000);
+  http.createServer(server).listen(process.env.PORT ?? 3000, () => {
+    console.log(
+      `Server is running on http://localhost:${process.env.PORT ?? 3000}`,
+    );
+  });
 }
 bootstrap();

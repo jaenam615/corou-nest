@@ -1,4 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Routine } from '../../routines/entity/routine.entity';
+import { Address } from '../../addresses/entity/address.entity';
+import { ItemOrder } from '../../item-orders/entity/item-order.entity';
+import { Review } from '../../reviews/entity/review.entity';
+import { Cart } from '../../carts/entity/cart.entity';
 
 @Entity('user')
 export class User {

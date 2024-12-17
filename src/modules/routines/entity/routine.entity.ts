@@ -6,6 +6,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Review } from '../../reviews/entity/review.entity';
+import { RoutineDetail } from './routine-detail.entity';
+import { RoutineSkinRelation } from '../../routine-skin-relations/entity/routine-skin-relation.entity';
+import { RoutineTagRelation } from './routine-tag-relation.entity';
+import { User } from '../../users/entity/user.entity';
 
 @Entity('routine')
 export class Routine {

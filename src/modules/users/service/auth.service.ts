@@ -16,6 +16,7 @@ import { LoginDto } from '../dto/login.dto';
 import { DataSource } from 'typeorm';
 import { User } from '../entity/user.entity';
 
+@Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
@@ -23,7 +24,7 @@ export class AuthService {
     private dataSource: DataSource,
   ) {}
 
-  async register(body: CreateUserDto) {
+  async register(body: CreateUserDto): Promise<void> {
     const { email, password, username, birth_date, gender, attributes } = body;
     const hashedPassword = await hashPassword(password);
 
@@ -51,13 +52,30 @@ export class AuthService {
         transactionalEntityManager,
       );
 
-      for (const attribute of attributes) {
-        await this.userSkinRelationService.addUserSkinRelation();
-      }
+      // for (const attribute of attributes) {
+      //   await this.userSkinRelationService.addUserSkinRelation();
+      // }
     });
   }
 
-  async verifyToken(token: string) {
+  async login(body: LoginDto): Promise<{ token: string }> {
+    const { email, password } = body;
+
+    const user = await this.usersService.findOneByEmail(email);
+    if (!user) {
+      throw new NotFoundException('존재하지 않는 이메일입니다.');
+    }
+
+    const isPasswordMatched = await comparePassword(password, user.password);
+    if (!isPasswordMatched) {
+      throw new BadRequestException('비밀번호가 일치하지 않습니다.');
+    }
+
+    const token = this.jwtService.sign({ user_key: user.user_key });
+    return { token };
+  }
+
+  async verifyToken(token: string): Promise<User> {
     try {
       return this.jwtService.verify(token);
     } catch (err) {

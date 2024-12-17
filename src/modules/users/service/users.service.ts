@@ -3,10 +3,14 @@ import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { Gender } from '../enum/gender.enum';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsersService {
-  constructor(private usersRepository: Repository<User>) {}
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
   async create(
     email: string,
