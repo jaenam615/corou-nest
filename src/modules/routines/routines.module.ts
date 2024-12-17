@@ -21,18 +21,19 @@ import { UsersService } from '../users/service/users.service';
 import { RoutineSkinRelation } from './entity/routine-skin-relation.entity';
 import { RoutineSkinRelationsService } from './service/routine-skin-relations.service';
 import { RoutinesController } from './controller/routines.controller';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       User,
       Routine,
-      Tag,
+      RoutineDetail,
       RoutineTagRelation,
       RoutineSkinRelation,
-      Item,
       SkinAttribute,
-      RoutineDetail,
+      Tag,
+      Item,
     ]),
     UsersModule,
     TagsModule,
@@ -45,11 +46,9 @@ import { RoutinesController } from './controller/routines.controller';
     RoutineDetailsService,
     RoutineTagRelationsService,
     RoutineSkinRelationsService,
-    SkinAttributesService,
-    TagsService,
-    ItemsService,
+    JwtService,
   ],
   controllers: [RoutinesController],
   exports: [RoutinesService],
 })
-export class RoutinesModule {}
+export class RoutinesModule { }

@@ -15,10 +15,10 @@ export class RoutinesService {
     @InjectRepository(Routine)
     private readonly routineRepository: Repository<Routine>,
     private readonly usersService: UsersService,
-    private routineDetailsService: RoutineDetailsService,
-    private routineSkinRelationsService: RoutineSkinRelationsService,
-    private routineTagRelationsService: RoutineTagRelationsService,
-    private tagsService: TagsService,
+    private readonly routineSkinRelationsService: RoutineSkinRelationsService,
+    private readonly routineDetailsService: RoutineDetailsService,
+    private readonly routineTagRelationsService: RoutineTagRelationsService,
+    private readonly tagsService: TagsService,
     private readonly dataSource: DataSource,
   ) {}
 

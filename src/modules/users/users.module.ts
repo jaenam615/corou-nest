@@ -6,13 +6,12 @@ import { User } from './entity/user.entity';
 import { Address } from '../addresses/entity/address.entity';
 import { AuthService } from './service/auth.service';
 import { JwtService } from '@nestjs/jwt';
-import { AddressModule } from 'src/address/address.module';
-import { AddressesService } from '../addresses/service/addresses.service';
+import { AddressesModule } from '../addresses/addresses.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Address]), AddressModule],
-  providers: [UsersService, AuthService, JwtService, AddressesService],
+  imports: [TypeOrmModule.forFeature([User, Address]), AddressesModule],
+  providers: [UsersService, AuthService, JwtService],
   controllers: [UsersController],
   exports: [UsersService],
 })
-export class UsersModule {}
+export class UsersModule { }

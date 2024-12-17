@@ -1,15 +1,20 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Item } from '../entity/item.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateItemDto } from '../dto/createItem.dto';
 import { Order } from 'src/common/enum/order.enum';
+import { UpdateItemDto } from '../dto/updateItem.dto';
 
 @Injectable()
 export class ItemsService {
   constructor(
     @InjectRepository(Item)
-    private itemRepository: Repository<Item>,
+    private readonly itemRepository: Repository<Item>,
   ) {}
   // 상품 등록
   async createItem(createItemDto: CreateItemDto): Promise<Item> {
@@ -71,22 +76,17 @@ export class ItemsService {
   async getItemByName(item_name: string): Promise<Item> {
     const item = await this.itemRepository.findOneBy({ item_name });
     if (!item) {
-      throw new Error('해당 아이템을 찾을 수 없습니다.');
+      throw new NotFoundException('해당 아이템을 찾을 수 없습니다.');
     }
     return item;
   }
   // 상품 정보 수정
-  async updateItem(
-    item_key: number,
-    item_name: string,
-    item_price: number,
-    item_image: string,
-    description: string,
-    category: string,
-  ): Promise<Item> {
+  async updateItem(updateItemDto: UpdateItemDto): Promise<Item> {
+    const { item_key, item_name, item_price, description, category } =
+      updateItemDto;
     const item = await this.itemRepository.findOneBy({ item_key });
     if (!item) {
-      throw new Error('해당 아이템을 찾을 수 없습니다.');
+      throw new NotFoundException('해당 아이템을 찾을 수 없습니다.');
     }
     item.item_name = item_name;
     item.item_price = item_price;

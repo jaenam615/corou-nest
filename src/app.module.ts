@@ -27,6 +27,8 @@ import { ItemOrder } from './modules/item-orders/entity/item-order.entity';
 import { Tag } from './modules/tags/entity/tag.entity';
 import { RoutineDetail } from './modules/routines/entity/routine-detail.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PaymentModule } from './payment/payment.module';
+import { PaymentsModule } from './modules/payments/payments.module';
 
 @Module({
   imports: [
@@ -72,6 +74,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     OrderDetailsModule,
     ItemOrdersModule,
     TagsModule,
+    PaymentModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

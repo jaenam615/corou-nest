@@ -8,7 +8,7 @@ export class RoutineSkinRelationsService {
   constructor(
     @InjectRepository(RoutineSkinRelation)
     private routineSkinRelationRepository: Repository<RoutineSkinRelation>,
-  ) {}
+  ) { }
 
   async addRoutineSkinRelation(
     routine_key: number,

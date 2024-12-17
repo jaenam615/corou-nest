@@ -8,10 +8,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class AddressesService {
   constructor(
-    private usersService: UsersService,
     @InjectRepository(Address)
     private addressRepository: Repository<Address>,
-  ) {}
+    private usersService: UsersService,
+  ) { }
 
   // 사용자 주소 추가
   async addAddress(

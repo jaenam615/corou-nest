@@ -9,7 +9,7 @@ export class RoutineDetailsService {
   constructor(
     @InjectRepository(RoutineDetail)
     private readonly routineDetailsRepository: Repository<RoutineDetail>,
-    private itemsService: ItemsService,
+    private readonly itemsService: ItemsService,
   ) {}
 
   // 루틴 단계 생성
