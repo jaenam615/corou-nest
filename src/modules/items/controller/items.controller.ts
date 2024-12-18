@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ItemsService } from '../service/items.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { CreateItemDto } from '../dto/createItem.dto';
-import { Order } from 'src/common/enum/order.enum';
+import { Order } from '../../../common/enum/order.enum';
 
 @Controller('items')
 export class ItemsController {

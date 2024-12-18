@@ -6,7 +6,7 @@ import {
   IsEnum,
   IsArray,
 } from 'class-validator';
-import { Gender } from 'src/common/enum/gender.enum';
+import { Gender } from '../../../common/enum/gender.enum';
 import { RoutineDetail } from '../entity/routine-detail.entity';
 
 export class BaseRoutineDto {

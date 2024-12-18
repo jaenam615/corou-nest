@@ -11,7 +11,7 @@ import { RoutineDetail } from './routine-detail.entity';
 import { RoutineSkinRelation } from './routine-skin-relation.entity';
 import { RoutineTagRelation } from './routine-tag-relation.entity';
 import { User } from '../../users/entity/user.entity';
-import { Gender } from 'src/common/enum/gender.enum';
+import { Gender } from '../../../common/enum/gender.enum';
 
 @Entity('routine')
 export class Routine {

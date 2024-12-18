@@ -15,7 +15,7 @@ import { RoutineDetailsService } from '../service/routine-details.service';
 import { BaseRoutineDto } from '../dto/baseRoutine.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ApiOperation } from '@nestjs/swagger';
-import { Order } from 'src/common/enum/order.enum';
+import { Order } from '../../../common/enum/order.enum';
 
 @Controller('routines')
 export class RoutinesController {

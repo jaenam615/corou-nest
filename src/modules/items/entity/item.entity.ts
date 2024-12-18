@@ -8,7 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Review } from '../../reviews/entity/review.entity';
-import { OrderDetail } from '../../order-details/entity/order-detail.entity';
+import { OrderDetail } from '../../orders/entity/order-detail.entity';
 import { Cart } from '../../carts/entity/cart.entity';
 
 @Entity('item')

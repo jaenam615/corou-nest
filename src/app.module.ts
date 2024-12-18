@@ -20,7 +20,7 @@ import { Cart } from './modules/carts/entity/cart.entity';
 import { Review } from './modules/reviews/entity/review.entity';
 import { SkinAttribute } from './modules/skin-attributes/entity/skin-attribute.entity';
 import { Item } from './modules/items/entity/item.entity';
-import { OrderDetail } from './modules/order-details/entity/order-detail.entity';
+import { OrderDetail } from './modules/orders/entity/order-detail.entity';
 import { RoutineTagRelation } from './modules/routines/entity/routine-tag-relation.entity';
 import { RoutineSkinRelation } from './modules/routines/entity/routine-skin-relation.entity';
 import { ItemOrder } from './modules/item-orders/entity/item-order.entity';
@@ -29,6 +29,7 @@ import { RoutineDetail } from './modules/routines/entity/routine-detail.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PaymentModule } from './payment/payment.module';
 import { PaymentsModule } from './modules/payments/payments.module';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @Module({
   imports: [
@@ -76,6 +77,7 @@ import { PaymentsModule } from './modules/payments/payments.module';
     TagsModule,
     PaymentModule,
     PaymentsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService, ConfigService],

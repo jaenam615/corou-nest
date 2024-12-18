@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { Item } from '../entity/item.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateItemDto } from '../dto/createItem.dto';
-import { Order } from 'src/common/enum/order.enum';
+import { Order } from '../../../common/enum/order.enum';
 import { UpdateItemDto } from '../dto/updateItem.dto';
 
 @Injectable()

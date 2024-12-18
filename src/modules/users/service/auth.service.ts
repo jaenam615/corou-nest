@@ -15,12 +15,14 @@ import {
 import { LoginDto } from '../dto/login.dto';
 import { DataSource } from 'typeorm';
 import { User } from '../entity/user.entity';
+import { UserSkinRelationsService } from './user-skin-relations.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
+    private userSkinRelationsService: UserSkinRelationsService,
     private dataSource: DataSource,
   ) {}
 
@@ -34,16 +36,16 @@ export class AuthService {
       }
 
       const emailCheck = await this.usersService.findOneByEmail(email);
-      if (!emailCheck) {
+      if (emailCheck) {
         throw new ConflictException('이미 존재하는 이메일입니다.');
       }
 
       const usernameCheck = await this.usersService.findOneByUsername(username);
-      if (!usernameCheck) {
+      if (usernameCheck) {
         throw new ConflictException('이미 존재하는 닉네임입니다.');
       }
 
-      await this.usersService.create(
+      const newUser = await this.usersService.create(
         email,
         hashedPassword,
         username,
@@ -52,9 +54,15 @@ export class AuthService {
         transactionalEntityManager,
       );
 
-      // for (const attribute of attributes) {
-      //   await this.userSkinRelationService.addUserSkinRelation();
-      // }
+      for (const attribute of attributes) {
+        await this.userSkinRelationsService.addUserSkinRelation(
+          newUser.user_key,
+          attribute,
+          transactionalEntityManager,
+        );
+      }
+
+      return newUser;
     });
   }
 
