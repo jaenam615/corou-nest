@@ -5,10 +5,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { AuthService } from '../../modules/users/service/auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly reflector: Reflector,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
@@ -19,8 +24,8 @@ export class JwtAuthGuard implements CanActivate {
     }
 
     try {
-      const payload = await this.authService.verifyToken(token);
-      request.user = payload;
+      const decoded = await this.jwtService.verify(token);
+      request.user = decoded;
       return true;
     } catch {
       throw new UnauthorizedException('유효하지 않은 토큰입니다.');

@@ -46,9 +46,8 @@ import { JwtService } from '@nestjs/jwt';
     RoutineDetailsService,
     RoutineTagRelationsService,
     RoutineSkinRelationsService,
-    JwtService,
   ],
   controllers: [RoutinesController],
   exports: [RoutinesService],
 })
-export class RoutinesModule { }
+export class RoutinesModule {}

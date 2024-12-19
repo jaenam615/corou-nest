@@ -61,4 +61,25 @@ export class ItemsController {
       };
     }
   }
+
+  @Get('search')
+  @ApiOperation({
+    summary: '아이템 검색',
+    description: '아이템을 검색합니다.',
+  })
+  async searchItems(@Query('keyword') keyword: string) {
+    try {
+      const items = await this.itemsService.searchItem(keyword);
+      return {
+        success: true,
+        message: '아이템 검색에 성공했습니다.',
+        data: items,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: '아이템 검색에 실패했습니다.',
+      };
+    }
+  }
 }

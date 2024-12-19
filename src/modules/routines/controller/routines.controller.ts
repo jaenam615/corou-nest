@@ -8,7 +8,10 @@ import {
   Post,
   Put,
   Query,
+  Req,
+  Request,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { RoutinesService } from '../service/routines.service';
 import { RoutineDetailsService } from '../service/routine-details.service';
@@ -16,26 +19,20 @@ import { BaseRoutineDto } from '../dto/baseRoutine.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ApiOperation } from '@nestjs/swagger';
 import { Order } from '../../../common/enum/order.enum';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @Controller('routines')
 export class RoutinesController {
   constructor(
     private readonly routinesService: RoutinesService,
     private readonly routineDetailService: RoutineDetailsService,
-    private readonly jwtService: JwtService,
   ) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '루틴 생성' })
-  async createRoutine(
-    @Headers('authorization') token: string,
-    @Body() body: BaseRoutineDto,
-  ) {
-    const checkToken = this.jwtService.verify(token.split(' ')[1]);
-    if (!checkToken) {
-      throw new UnauthorizedException('토큰이 제공되지 않았습니다.');
-    }
-    const user_key = checkToken['user_key'];
+  async createRoutine(@Request() req, @Body() body: BaseRoutineDto) {
+    const user_key = req.user.user_key;
     try {
       const routine = await this.routinesService.createRoutine(user_key, body);
       return {
@@ -110,17 +107,14 @@ export class RoutinesController {
   }
 
   @Put('/:routine_key')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '루틴 수정' })
   async updateRoutine(
+    @Request() req,
     @Param('routine_key') routine_key: number,
-    @Headers('authorization') token: string,
     @Body() body: BaseRoutineDto,
   ) {
-    const checkToken = this.jwtService.verify(token.split(' ')[1]);
-    if (!checkToken) {
-      throw new UnauthorizedException('토큰이 제공되지 않았습니다.');
-    }
-    const user_key = checkToken['user_key'];
+    const user_key = req.user.user_key;
     try {
       const routine = await this.routinesService.updateRoutine(
         routine_key,
@@ -142,9 +136,17 @@ export class RoutinesController {
   }
 
   @Delete('/:routine_key')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: '루틴 삭제' })
-  async deleteRoutine(@Param('routine_key') routine_key: number) {
+  async deleteRoutine(
+    @Request() req,
+    @Param('routine_key') routine_key: number,
+  ) {
     try {
+      await this.routinesService.getRoutineByKey(routine_key);
+      if (routine_key !== req.user.user_key) {
+        throw new UnauthorizedException('권한이 없습니다.');
+      }
       await this.routinesService.deleteRoutine(routine_key);
       return {
         success: true,

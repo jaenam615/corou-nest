@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import 'reflect-metadata';
 import { Item } from '../../items/entity/item.entity';
-import { ItemOrder } from '../../item-orders/entity/item-order.entity';
+import { ItemOrder } from './item-order.entity';
 
 @Entity('order_detail')
 export class OrderDetail {

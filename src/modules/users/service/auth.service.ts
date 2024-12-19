@@ -83,11 +83,11 @@ export class AuthService {
     return { token };
   }
 
-  async verifyToken(token: string): Promise<User> {
-    try {
-      return this.jwtService.verify(token);
-    } catch (err) {
-      throw new UnauthorizedException('유효하지 않은 토큰입니다.');
-    }
-  }
+  // async verifyToken(token: string): Promise<User> {
+  //   try {
+  //     return this.jwtService.verify(token);
+  //   } catch (err) {
+  //     throw new UnauthorizedException('유효하지 않은 토큰입니다.');
+  //   }
+  // }
 }
