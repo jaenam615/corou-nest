@@ -5,14 +5,11 @@ import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { RoutinesModule } from './modules/routines/routines.module';
 import { User } from './modules/users/entity/user.entity';
-import { UserSkinRelationsModule } from './modules/user-skin-relations/user-skin-relations.module';
 import { CartsModule } from './modules/carts/carts.module';
 import { AddressesModule } from './modules/addresses/addresses.module';
 import { ReviewsModule } from './modules/reviews/reviews.module';
 import { SkinAttributesModule } from './modules/skin-attributes/skin-attributes.module';
 import { ItemsModule } from './modules/items/items.module';
-import { OrderDetailsModule } from './modules/order-details/order-details.module';
-import { ItemOrdersModule } from './modules/item-orders/item-orders.module';
 import { TagsModule } from './modules/tags/tags.module';
 import { Address } from './modules/addresses/entity/address.entity';
 import { Routine } from './modules/routines/entity/routine.entity';
@@ -23,11 +20,10 @@ import { Item } from './modules/items/entity/item.entity';
 import { OrderDetail } from './modules/orders/entity/order-detail.entity';
 import { RoutineTagRelation } from './modules/routines/entity/routine-tag-relation.entity';
 import { RoutineSkinRelation } from './modules/routines/entity/routine-skin-relation.entity';
-import { ItemOrder } from './modules/item-orders/entity/item-order.entity';
+import { ItemOrder } from './modules/orders/entity/item-order.entity';
 import { Tag } from './modules/tags/entity/tag.entity';
 import { RoutineDetail } from './modules/routines/entity/routine-detail.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PaymentModule } from './payment/payment.module';
 import { PaymentsModule } from './modules/payments/payments.module';
 import { OrdersModule } from './modules/orders/orders.module';
 
@@ -66,16 +62,12 @@ import { OrdersModule } from './modules/orders/orders.module';
     }),
     UsersModule,
     RoutinesModule,
-    UserSkinRelationsModule,
     CartsModule,
     AddressesModule,
     ReviewsModule,
     SkinAttributesModule,
     ItemsModule,
-    OrderDetailsModule,
-    ItemOrdersModule,
     TagsModule,
-    PaymentModule,
     PaymentsModule,
     OrdersModule,
   ],

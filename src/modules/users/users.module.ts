@@ -17,6 +17,6 @@ import { UserSkinRelation } from './entity/user-skin-relation.entity';
   ],
   providers: [UsersService, AuthService, JwtService, UserSkinRelationsService],
   controllers: [UsersController],
-  exports: [UsersService],
+  exports: [UsersService, JwtService],
 })
 export class UsersModule {}

@@ -8,7 +8,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { User } from '../../users/entity/user.entity';
-import { ItemOrder } from '../../item-orders/entity/item-order.entity';
+import { ItemOrder } from '../../orders/entity/item-order.entity';
 
 @Entity('address')
 export class Address {

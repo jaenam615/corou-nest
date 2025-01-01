@@ -3,10 +3,15 @@ import { Address } from './entity/address.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AddressesService } from './service/addresses.service';
 import { UsersModule } from '../users/users.module';
+import { User } from '../users/entity/user.entity';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Address]), forwardRef(() => UsersModule)],
+  imports: [
+    TypeOrmModule.forFeature([Address, User]),
+    forwardRef(() => UsersModule),
+  ],
   providers: [AddressesService],
   exports: [AddressesService],
 })
-export class AddressesModule { }
+export class AddressesModule {}

@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { portoneClient } from '../config/portone.config';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const PORTONE_REST_API_KEY = process.env.PORTONE_REST_API_KEY;
 const PORTONE_API_SECRET = process.env.PORTONE_API_SECRET;

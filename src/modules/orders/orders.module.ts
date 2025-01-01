@@ -12,6 +12,7 @@ import { Item } from '../items/entity/item.entity';
 import { Cart } from '../carts/entity/cart.entity';
 import { Address } from '../addresses/entity/address.entity';
 import { OrdersController } from './controller/orders.controller';
+import { AddressesModule } from '../addresses/addresses.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { OrdersController } from './controller/orders.controller';
     UsersModule,
     ItemsModule,
     CartsModule,
+    AddressesModule,
   ],
   providers: [OrderDetailsService, ItemOrdersService],
   exports: [OrderDetailsService, ItemOrdersService],
