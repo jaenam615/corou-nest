@@ -20,7 +20,7 @@ export class PaymentsController {
         data: payment,
       };
     } catch (error) {
-      console.error('Error in getPayment controller:', error);
+      console.error('Error in getPayment controllers:', error);
       return {
         success: false,
         message: '결제 조회에 실패했습니다.',

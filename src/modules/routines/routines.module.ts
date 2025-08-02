@@ -15,9 +15,9 @@ import { SkinAttributesService } from '../skin-attributes/service/skin-attribute
 import { SkinAttributesModule } from '../skin-attributes/skin-attributes.module';
 import { SkinAttribute } from '../skin-attributes/entity/skin-attribute.entity';
 import { RoutineDetail } from './entity/routine-detail.entity';
-import { User } from '../users/entity/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { UsersModule } from '../users/users.module';
-import { UsersService } from '../users/service/users.service';
+import { UsersService } from 'src/modules/users/services/users.service';
 import { RoutineSkinRelation } from './entity/routine-skin-relation.entity';
 import { RoutineSkinRelationsService } from './service/routine-skin-relations.service';
 import { RoutinesController } from './controller/routines.controller';

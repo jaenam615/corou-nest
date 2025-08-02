@@ -14,7 +14,7 @@ import {
 } from '../../../common/utils/bcrypt.utils';
 import { LoginDto } from '../dto/login.dto';
 import { DataSource } from 'typeorm';
-import { User } from '../entity/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { UserSkinRelationsService } from './user-skin-relations.service';
 
 @Injectable()

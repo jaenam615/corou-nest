@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { RoutinesModule } from './modules/routines/routines.module';
-import { User } from './modules/users/entity/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { CartsModule } from './modules/carts/carts.module';
 import { AddressesModule } from './modules/addresses/addresses.module';
 import { ReviewsModule } from './modules/reviews/reviews.module';

@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { Address } from '../entity/address.entity';
-import { UsersService } from '../../users/service/users.service';
+import { UsersService } from 'src/modules/users/services/users.service';
 import { BaseAddressDto } from '../dto/baseAddress.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';

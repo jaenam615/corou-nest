@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { ApiOperation } from '@nestjs/swagger';
-import { UsersService } from '../service/users.service';
-import { AuthService } from '../service/auth.service';
+import { UsersService } from 'src/modules/users/services/users.service';
+import { AuthService } from 'src/modules/users/services/auth.service';
 import { LoginDto } from '../dto/login.dto';
 import { BaseAddressDto } from 'src/modules/addresses/dto/baseAddress.dto';
 import { AddressesService } from 'src/modules/addresses/service/addresses.service';

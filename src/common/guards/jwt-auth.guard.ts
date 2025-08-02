@@ -4,7 +4,7 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
-import { AuthService } from '../../modules/users/service/auth.service';
+import { AuthService } from 'src/modules/users/services/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { Reflector } from '@nestjs/core';
 

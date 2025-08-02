@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Routine } from '../entity/routine.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UsersService } from 'src/modules/users/service/users.service';
+import { UsersService } from 'src/modules/users/services/users.service';
 import { RoutineTagRelationsService } from './routine-tag-relations.service';
 import { TagsService } from 'src/modules/tags/service/tags.service';
 import { BaseRoutineDto } from '../dto/baseRoutine.dto';

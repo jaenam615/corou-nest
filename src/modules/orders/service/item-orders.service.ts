@@ -4,7 +4,7 @@ import { OrderDetail } from '../entity/order-detail.entity';
 import { DataSource, EntityManager, Repository } from 'typeorm';
 import { ItemsService } from 'src/modules/items/service/items.service';
 import { ItemOrder } from '../entity/item-order.entity';
-import { UsersService } from 'src/modules/users/service/users.service';
+import { UsersService } from 'src/modules/users/services/users.service';
 import { AddressesService } from 'src/modules/addresses/service/addresses.service';
 import { OrderDetailsService } from './order-details.service';
 import { CartsService } from 'src/modules/carts/service/carts.service';

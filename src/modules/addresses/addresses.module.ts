@@ -3,7 +3,7 @@ import { Address } from './entity/address.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AddressesService } from './service/addresses.service';
 import { UsersModule } from '../users/users.module';
-import { User } from '../users/entity/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({

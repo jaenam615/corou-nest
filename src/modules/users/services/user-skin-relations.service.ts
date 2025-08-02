@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserSkinRelation } from '../entity/user-skin-relation.entity';
+import { UserSkinRelation } from 'src/modules/users/entities/user-skin-relation.entity';
 import { DataSource, EntityManager, Repository } from 'typeorm';
 
 @Injectable()

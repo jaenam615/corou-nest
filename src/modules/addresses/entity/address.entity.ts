@@ -7,7 +7,7 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
-import { User } from '../../users/entity/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { ItemOrder } from '../../orders/entity/item-order.entity';
 
 @Entity('address')
