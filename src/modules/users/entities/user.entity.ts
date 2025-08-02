@@ -4,7 +4,7 @@ import { Address } from '../../addresses/entity/address.entity';
 import { ItemOrder } from '../../orders/entity/item-order.entity';
 import { Review } from '../../reviews/entity/review.entity';
 import { Cart } from '../../carts/entity/cart.entity';
-import { Gender } from '../../../common/enum/gender.enum';
+import { Gender } from 'src/common/enum/gender.enum';
 
 @Entity('user')
 export class User {
