@@ -10,12 +10,12 @@ import * as bcryptUtils from '../../../common/utils/bcrypt.utils';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let userRepo: jest.Mocked<Repository<User>>;
+  let usersRepository: jest.Mocked<Repository<User>>;
   let dataSource: jest.Mocked<DataSource>;
   let userSkinRelationService: jest.Mocked<UserSkinRelationsService>;
 
   beforeEach(async () => {
-    userRepo = {
+    usersRepository = {
       findOneBy: jest.fn(),
       find: jest.fn(),
     } as any;
@@ -31,7 +31,7 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
-        { provide: getRepositoryToken(User), useValue: userRepo },
+        { provide: getRepositoryToken(User), useValue: usersRepository },
         { provide: DataSource, useValue: dataSource },
         {
           provide: UserSkinRelationsService,
@@ -91,6 +91,21 @@ describe('UsersService', () => {
       );
 
       expect(result).toEqual(savedUser);
+    });
+  });
+
+  describe('findOneByKey', () => {
+    it('should find a user by key', async () => {
+      const userKey = 1;
+      const mockUser = { user_key: userKey, email: 'test@example.com' } as User;
+
+      usersRepository.findOneBy.mockResolvedValue(mockUser);
+
+      const result = await service.findOneByKey(userKey);
+      expect(result).toEqual(mockUser);
+      expect(usersRepository.findOneBy).toHaveBeenCalledWith({
+        user_key: userKey,
+      });
     });
   });
 });
