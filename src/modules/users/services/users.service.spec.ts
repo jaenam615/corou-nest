@@ -8,6 +8,13 @@ import { CreateUserDto } from '../dto/create-user.dto';
 
 import * as bcryptUtils from '../../../common/utils/bcrypt.utils';
 
+const mockUser = {
+  user_key: 1,
+  username: 'tester',
+  email: 'test@example.com',
+  birth_date: new Date('1990-01-01'),
+} as User;
+
 describe('UsersService', () => {
   let service: UsersService;
   let usersRepository: jest.Mocked<Repository<User>>;
@@ -45,7 +52,6 @@ describe('UsersService', () => {
 
   describe('create', () => {
     it('should create a user and relate attributes', async () => {
-      // Mock hashPassword
       jest.spyOn(bcryptUtils, 'hashPassword').mockResolvedValue('hashed_pw');
 
       const dto: CreateUserDto = {
@@ -97,7 +103,6 @@ describe('UsersService', () => {
   describe('findOneByKey', () => {
     it('should find a user by key', async () => {
       const userKey = 1;
-      const mockUser = { user_key: userKey, email: 'test@example.com' } as User;
 
       usersRepository.findOneBy.mockResolvedValue(mockUser);
 
@@ -106,6 +111,39 @@ describe('UsersService', () => {
       expect(usersRepository.findOneBy).toHaveBeenCalledWith({
         user_key: userKey,
       });
+    });
+  });
+
+  describe('findOneByEmail', () => {
+    it('should find a user by email', async () => {
+      const email = 'test@example.com';
+
+      usersRepository.findOneBy.mockResolvedValue(mockUser);
+      const result = await service.findOneByEmail(email);
+      expect(result).toEqual(mockUser);
+      expect(usersRepository.findOneBy).toHaveBeenCalledWith({ email });
+    });
+  });
+
+  describe('findOneByUsername', () => {
+    it('should find a user by username', async () => {
+      const username = 'tester';
+
+      usersRepository.findOneBy.mockResolvedValue(mockUser);
+      const result = await service.findOneByUsername(username);
+      expect(result).toEqual(mockUser);
+      expect(usersRepository.findOneBy).toHaveBeenCalledWith({ username });
+    });
+  });
+
+  describe('getAllUsers', () => {
+    it('should return all users', async () => {
+      const users = [mockUser];
+      usersRepository.find.mockResolvedValue(users);
+
+      const result = await service.findAllUsers();
+      expect(result).toEqual(users);
+      expect(usersRepository.find).toHaveBeenCalled();
     });
   });
 });
