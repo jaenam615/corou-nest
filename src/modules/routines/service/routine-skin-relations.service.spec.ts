@@ -9,7 +9,9 @@ describe('RoutineSkinRelationsService', () => {
       providers: [RoutineSkinRelationsService],
     }).compile();
 
-    service = module.get<RoutineSkinRelationsService>(RoutineSkinRelationsService);
+    service = module.get<RoutineSkinRelationsService>(
+      RoutineSkinRelationsService,
+    );
   });
 
   it('should be defined', () => {

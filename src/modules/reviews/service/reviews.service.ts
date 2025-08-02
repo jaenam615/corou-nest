@@ -13,7 +13,7 @@ export class ReviewsService {
     private readonly reviewRepository: Repository<Review>,
     private readonly itemsService: ItemsService,
     private readonly routinesService: RoutinesService,
-  ) { }
+  ) {}
 
   // 리뷰 등록
   async createReview(

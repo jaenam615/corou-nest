@@ -11,7 +11,7 @@ export class AddressesService {
     @InjectRepository(Address)
     private addressRepository: Repository<Address>,
     private usersService: UsersService,
-  ) { }
+  ) {}
 
   // 사용자 주소 추가
   async addAddress(

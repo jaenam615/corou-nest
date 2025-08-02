@@ -21,4 +21,4 @@ import { ItemsService } from '../items/service/items.service';
   providers: [ReviewsService],
   exports: [ReviewsService],
 })
-export class ReviewsModule { }
+export class ReviewsModule {}
