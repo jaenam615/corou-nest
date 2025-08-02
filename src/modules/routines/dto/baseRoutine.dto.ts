@@ -53,7 +53,7 @@ export class BaseRoutineDto {
     description: '루틴 대상 피부문제',
     example: [9, 10],
   })
-  for_problem: String[];
+  for_problem: string[];
 
   @IsArray()
   @ApiProperty({

@@ -8,14 +8,21 @@ import { CreateUserDto } from '../dto/create-user.dto';
 
 import * as bcryptUtils from '../../../common/utils/bcrypt.utils';
 
+const mockUser = {
+  user_key: 1,
+  username: 'tester',
+  email: 'test@example.com',
+  birth_date: new Date('1990-01-01'),
+} as User;
+
 describe('UsersService', () => {
   let service: UsersService;
-  let userRepo: jest.Mocked<Repository<User>>;
+  let usersRepository: jest.Mocked<Repository<User>>;
   let dataSource: jest.Mocked<DataSource>;
   let userSkinRelationService: jest.Mocked<UserSkinRelationsService>;
 
   beforeEach(async () => {
-    userRepo = {
+    usersRepository = {
       findOneBy: jest.fn(),
       find: jest.fn(),
     } as any;
@@ -31,7 +38,7 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
-        { provide: getRepositoryToken(User), useValue: userRepo },
+        { provide: getRepositoryToken(User), useValue: usersRepository },
         { provide: DataSource, useValue: dataSource },
         {
           provide: UserSkinRelationsService,
@@ -45,7 +52,6 @@ describe('UsersService', () => {
 
   describe('create', () => {
     it('should create a user and relate attributes', async () => {
-      // Mock hashPassword
       jest.spyOn(bcryptUtils, 'hashPassword').mockResolvedValue('hashed_pw');
 
       const dto: CreateUserDto = {
@@ -91,6 +97,53 @@ describe('UsersService', () => {
       );
 
       expect(result).toEqual(savedUser);
+    });
+  });
+
+  describe('findOneByKey', () => {
+    it('should find a user by key', async () => {
+      const userKey = 1;
+
+      usersRepository.findOneBy.mockResolvedValue(mockUser);
+
+      const result = await service.findOneByKey(userKey);
+      expect(result).toEqual(mockUser);
+      expect(usersRepository.findOneBy).toHaveBeenCalledWith({
+        user_key: userKey,
+      });
+    });
+  });
+
+  describe('findOneByEmail', () => {
+    it('should find a user by email', async () => {
+      const email = 'test@example.com';
+
+      usersRepository.findOneBy.mockResolvedValue(mockUser);
+      const result = await service.findOneByEmail(email);
+      expect(result).toEqual(mockUser);
+      expect(usersRepository.findOneBy).toHaveBeenCalledWith({ email });
+    });
+  });
+
+  describe('findOneByUsername', () => {
+    it('should find a user by username', async () => {
+      const username = 'tester';
+
+      usersRepository.findOneBy.mockResolvedValue(mockUser);
+      const result = await service.findOneByUsername(username);
+      expect(result).toEqual(mockUser);
+      expect(usersRepository.findOneBy).toHaveBeenCalledWith({ username });
+    });
+  });
+
+  describe('getAllUsers', () => {
+    it('should return all users', async () => {
+      const users = [mockUser];
+      usersRepository.find.mockResolvedValue(users);
+
+      const result = await service.findAllUsers();
+      expect(result).toEqual(users);
+      expect(usersRepository.find).toHaveBeenCalled();
     });
   });
 });
