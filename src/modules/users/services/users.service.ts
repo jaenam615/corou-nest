@@ -26,14 +26,16 @@ export class UsersService {
         birth_date: createUserDto.birth_date,
         gender: createUserDto.gender,
       });
-      for (const attr_key of createUserDto.attributes) {
-        await this.userSkinRelationService.addUserSkinRelation(
-          user.user_key,
-          attr_key,
-          manager,
-        );
-      }
-      return await manager.save(user);
+      await Promise.all(
+        createUserDto.attributes.map((attr_key) =>
+          this.userSkinRelationService.addUserSkinRelation(
+            user.user_key,
+            attr_key,
+            manager,
+          ),
+        ),
+      );
+      return user;
     });
   }
 

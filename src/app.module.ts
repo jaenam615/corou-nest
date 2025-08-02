@@ -57,6 +57,10 @@ import { OrdersModule } from './modules/orders/orders.module';
           Tag,
         ],
         synchronize: true,
+        extra: {
+          connectionLimit: 20,
+          idleTimeoutMillis: 30000,
+        },
       }),
       inject: [ConfigService],
     }),

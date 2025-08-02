@@ -1,0 +1,49 @@
+name: 🚀 Feature Request
+description: Suggest a new feature or enhancement
+title: "CRN-###: [Feature] <short summary>"
+labels: [feature, needs-triage]
+body:
+  - type: input
+    id: issue-id
+    attributes:
+      label: Issue ID
+      description: Use the format `CRN-###`
+      placeholder: CRN-001
+    validations:
+      required: true
+
+  - type: input
+    id: start-date
+    attributes:
+      label: Start Date
+      placeholder: YYYY-MM-DD
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Describe the background or reason for the feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirement
+    attributes:
+      label: Requirements
+      description: What are we trying to build or enhance?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 - Critical
+        - P1 - High
+        - P2 - Medium
+        - P3 - Low
+    validations:
+      required: true
