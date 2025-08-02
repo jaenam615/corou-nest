@@ -6,8 +6,6 @@ import { Repository, DataSource, EntityManager } from 'typeorm';
 import { UserSkinRelationsService } from './user-skin-relations.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 
-import * as bcryptUtils from '../../../common/utils/bcrypt.utils';
-
 const mockUser = {
   user_key: 1,
   username: 'tester',
@@ -50,52 +48,26 @@ describe('UsersService', () => {
     service = module.get<UsersService>(UsersService);
   });
 
-  describe('create', () => {
-    it('should create a user and relate attributes', async () => {
-      jest.spyOn(bcryptUtils, 'hashPassword').mockResolvedValue('hashed_pw');
-
-      const dto: CreateUserDto = {
+  describe('UsersService.create', () => {
+    it('should save a user via the passed EntityManager', async () => {
+      const userInput: CreateUserDto = {
         email: 'test@example.com',
-        password: 'plain_pw',
+        password: 'hashed_pw',
         username: 'tester',
         birth_date: new Date('1990-01-01'),
         gender: 'M' as any,
         attributes: [1, 2],
       };
 
-      const savedUser = { user_key: 42, ...dto, password: 'hashed_pw' } as User;
+      const savedUser = { user_key: 42, ...userInput } as User;
 
-      dataSource.transaction.mockImplementation(
-        async (_isolationOrCallback, maybeCallback?) => {
-          const callback =
-            typeof _isolationOrCallback === 'function'
-              ? _isolationOrCallback
-              : maybeCallback;
-          const mockManager = {
-            save: jest.fn().mockResolvedValue(savedUser),
-          } as unknown as EntityManager;
-          return await callback(mockManager);
-        },
-      );
+      const mockManager = {
+        save: jest.fn().mockResolvedValue(savedUser),
+      } as unknown as EntityManager;
 
-      const result = await service.create(dto);
+      const result = await service.create(userInput, mockManager);
 
-      expect(bcryptUtils.hashPassword).toHaveBeenCalledWith('plain_pw');
-
-      expect(userSkinRelationService.addUserSkinRelation).toHaveBeenCalledTimes(
-        2,
-      );
-      expect(userSkinRelationService.addUserSkinRelation).toHaveBeenCalledWith(
-        42,
-        1,
-        expect.any(Object),
-      );
-      expect(userSkinRelationService.addUserSkinRelation).toHaveBeenCalledWith(
-        42,
-        2,
-        expect.any(Object),
-      );
-
+      expect(mockManager.save).toHaveBeenCalledWith(User, userInput);
       expect(result).toEqual(savedUser);
     });
   });
