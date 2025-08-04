@@ -1,14 +1,5 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { BaseAddressDto } from 'src/modules/addresses/dto/baseAddress.dto';
 import { AddressesService } from 'src/modules/addresses/service/addresses.service';
 import { AuthService } from 'src/modules/users/services/auth.service';
 import { UsersService } from 'src/modules/users/services/users.service';
@@ -47,23 +38,6 @@ export class UsersController {
         ? '이미 사용중인 닉네임입니다.'
         : '사용 가능한 닉네임입니다.',
       username,
-    };
-  }
-
-  @Get('/:user_key/address/:addr_key')
-  @ApiOperation({ summary: '주소 조회' })
-  async getOneAddress(
-    @Param('user_key') user_key: number,
-    @Param('addr_key') addr_key: number,
-  ) {
-    const address = await this.addressesService.getOneAddress(
-      user_key,
-      addr_key,
-    );
-    return {
-      success: true,
-      message: '주소 조회 성공',
-      data: address,
     };
   }
 
@@ -118,52 +92,6 @@ export class UsersController {
       success: true,
       message: '로그인 성공',
       token,
-    };
-  }
-
-  @Post('/:user_key/address')
-  @ApiOperation({ summary: '주소 등록' })
-  async addAddress(
-    @Param('user_key') user_key: number,
-    @Body() body: BaseAddressDto,
-  ) {
-    const address = await this.addressesService.addAddress(user_key, body);
-    return {
-      success: true,
-      message: '주소 등록 성공',
-      data: address,
-    };
-  }
-
-  @Put('/:user_key/address/:addr_key')
-  @ApiOperation({ summary: '주소 수정' })
-  async updateAddress(
-    @Param('user_key') user_key: number,
-    @Param('addr_key') addr_key: number,
-    @Body() body: BaseAddressDto,
-  ) {
-    const address = await this.addressesService.updateAddress(
-      user_key,
-      addr_key,
-      body,
-    );
-    return {
-      success: true,
-      message: '주소 수정 성공',
-      data: address,
-    };
-  }
-
-  @Delete('/:user_key/address/:addr_key')
-  @ApiOperation({ summary: '주소 삭제' })
-  async removeAddress(
-    @Param('user_key') user_key: number,
-    @Param('addr_key') addr_key: number,
-  ) {
-    await this.addressesService.deleteAddress(addr_key);
-    return {
-      success: true,
-      message: '주소 삭제 성공',
     };
   }
 }

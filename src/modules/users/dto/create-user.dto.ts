@@ -47,4 +47,8 @@ export class CreateUserDto {
     example: [1, 7, 10, 11],
   })
   attributes: number[];
+
+  constructor(init?: Partial<CreateUserDto>) {
+    Object.assign(this, init);
+  }
 }

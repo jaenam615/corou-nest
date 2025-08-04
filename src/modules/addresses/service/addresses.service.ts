@@ -63,7 +63,10 @@ export class AddressesService {
   }
 
   // 사용자 주소 조회
-  async getOneAddress(user_key: number, address_key: number): Promise<Address> {
+  async getOneAddress(
+    _user_key: number,
+    address_key: number,
+  ): Promise<Address> {
     const address = await this.addressRepository.findOneBy({ address_key });
     if (!address) {
       throw new NotFoundException('해당 주소를 찾을 수 없습니다.');
