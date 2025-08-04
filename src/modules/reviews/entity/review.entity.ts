@@ -1,15 +1,16 @@
 import 'reflect-metadata';
+
+import { User } from 'src/modules/users/entities/user.entity';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  OneToMany,
+  Entity,
   JoinColumn,
   ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from 'src/modules/users/entities/user.entity';
-import { Routine } from '../../routines/entity/routine.entity';
+
 import { Item } from '../../items/entity/item.entity';
+import { Routine } from '../../routines/entity/routine.entity';
 
 @Entity('review')
 export class Review {

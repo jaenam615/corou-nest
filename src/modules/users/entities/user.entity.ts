@@ -1,10 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Routine } from '../../routines/entity/routine.entity';
+import { Gender } from 'src/common/enum/gender.enum';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Address } from '../../addresses/entity/address.entity';
+import { Cart } from '../../carts/entity/cart.entity';
 import { ItemOrder } from '../../orders/entity/item-order.entity';
 import { Review } from '../../reviews/entity/review.entity';
-import { Cart } from '../../carts/entity/cart.entity';
-import { Gender } from 'src/common/enum/gender.enum';
+import { Routine } from '../../routines/entity/routine.entity';
 
 @Entity('user')
 export class User {

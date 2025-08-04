@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { SkinAttribute } from '../entity/skin-attribute.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { SkinAttribute } from '../entity/skin-attribute.entity';
 
 @Injectable()
 export class SkinAttributesService {

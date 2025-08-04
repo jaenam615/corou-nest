@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RoutineTagRelation } from '../entity/routine-tag-relation.entity';
 import { EntityManager, Repository } from 'typeorm';
+
+import { RoutineTagRelation } from '../entity/routine-tag-relation.entity';
 
 @Injectable()
 export class RoutineTagRelationsService {

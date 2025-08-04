@@ -5,15 +5,15 @@ import {
   Get,
   Post,
   Put,
-  Req,
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { CartsService } from '../service/carts.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+
 import { AddToCartDto } from '../dto/addToCart.dto';
 import { UpdateCartDto } from '../dto/updateCart.dto';
+import { CartsService } from '../service/carts.service';
 
 @Controller('carts')
 export class CartsController {

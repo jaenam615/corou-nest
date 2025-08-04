@@ -1,10 +1,10 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { Address } from './entity/address.entity';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AddressesService } from './service/addresses.service';
-import { UsersModule } from '../users/users.module';
 import { User } from 'src/modules/users/entities/user.entity';
-import { JwtService } from '@nestjs/jwt';
+
+import { UsersModule } from '../users/users.module';
+import { Address } from './entity/address.entity';
+import { AddressesService } from './service/addresses.service';
 
 @Module({
   imports: [

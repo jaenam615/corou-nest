@@ -1,31 +1,32 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/modules/users/entities/user.entity';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './modules/users/users.module';
-import { RoutinesModule } from './modules/routines/routines.module';
-import { User } from 'src/modules/users/entities/user.entity';
-import { CartsModule } from './modules/carts/carts.module';
 import { AddressesModule } from './modules/addresses/addresses.module';
-import { ReviewsModule } from './modules/reviews/reviews.module';
-import { SkinAttributesModule } from './modules/skin-attributes/skin-attributes.module';
-import { ItemsModule } from './modules/items/items.module';
-import { TagsModule } from './modules/tags/tags.module';
 import { Address } from './modules/addresses/entity/address.entity';
-import { Routine } from './modules/routines/entity/routine.entity';
+import { CartsModule } from './modules/carts/carts.module';
 import { Cart } from './modules/carts/entity/cart.entity';
-import { Review } from './modules/reviews/entity/review.entity';
-import { SkinAttribute } from './modules/skin-attributes/entity/skin-attribute.entity';
 import { Item } from './modules/items/entity/item.entity';
-import { OrderDetail } from './modules/orders/entity/order-detail.entity';
-import { RoutineTagRelation } from './modules/routines/entity/routine-tag-relation.entity';
-import { RoutineSkinRelation } from './modules/routines/entity/routine-skin-relation.entity';
+import { ItemsModule } from './modules/items/items.module';
 import { ItemOrder } from './modules/orders/entity/item-order.entity';
-import { Tag } from './modules/tags/entity/tag.entity';
-import { RoutineDetail } from './modules/routines/entity/routine-detail.entity';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PaymentsModule } from './modules/payments/payments.module';
+import { OrderDetail } from './modules/orders/entity/order-detail.entity';
 import { OrdersModule } from './modules/orders/orders.module';
+import { PaymentsModule } from './modules/payments/payments.module';
+import { Review } from './modules/reviews/entity/review.entity';
+import { ReviewsModule } from './modules/reviews/reviews.module';
+import { RoutineDetail } from './modules/routines/entity/routine-detail.entity';
+import { RoutineSkinRelation } from './modules/routines/entity/routine-skin-relation.entity';
+import { RoutineTagRelation } from './modules/routines/entity/routine-tag-relation.entity';
+import { Routine } from './modules/routines/entity/routine.entity';
+import { RoutinesModule } from './modules/routines/routines.module';
+import { SkinAttribute } from './modules/skin-attributes/entity/skin-attribute.entity';
+import { SkinAttributesModule } from './modules/skin-attributes/skin-attributes.module';
+import { Tag } from './modules/tags/entity/tag.entity';
+import { TagsModule } from './modules/tags/tags.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [

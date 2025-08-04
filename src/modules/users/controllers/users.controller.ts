@@ -7,13 +7,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
 import { ApiOperation } from '@nestjs/swagger';
-import { UsersService } from 'src/modules/users/services/users.service';
-import { AuthService } from 'src/modules/users/services/auth.service';
-import { LoginDto } from '../dto/login.dto';
 import { BaseAddressDto } from 'src/modules/addresses/dto/baseAddress.dto';
 import { AddressesService } from 'src/modules/addresses/service/addresses.service';
+import { AuthService } from 'src/modules/users/services/auth.service';
+import { UsersService } from 'src/modules/users/services/users.service';
+
+import { CreateUserDto } from '../dto/create-user.dto';
+import { LoginDto } from '../dto/login.dto';
 
 @Controller('users')
 export class UsersController {

@@ -1,7 +1,9 @@
 import 'reflect-metadata';
+
 import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
-import { User } from './user.entity';
+
 import { SkinAttribute } from '../../skin-attributes/entity/skin-attribute.entity';
+import { User } from './user.entity';
 
 @Entity('user_skin_relation')
 export class UserSkinRelation {

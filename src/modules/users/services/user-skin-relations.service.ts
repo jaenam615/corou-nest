@@ -28,9 +28,6 @@ export class UserSkinRelationsService {
     attr_key: number[],
   ): Promise<void> {
     return this.dataSource.transaction(async (transactionalEntityManager) => {
-      {
-        isolation: 'READ COMMITTED';
-      }
       await this.userSkinRelationRepository.delete({ user_key });
       for (const attr of attr_key) {
         await this.addUserSkinRelation(

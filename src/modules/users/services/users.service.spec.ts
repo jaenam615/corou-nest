@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../entities/user.entity';
-import { Repository, DataSource, EntityManager } from 'typeorm';
-import { UserSkinRelationsService } from './user-skin-relations.service';
+import { DataSource, EntityManager, Repository } from 'typeorm';
+
 import { CreateUserDto } from '../dto/create-user.dto';
+import { User } from '../entities/user.entity';
+import { UserSkinRelationsService } from './user-skin-relations.service';
+import { UsersService } from './users.service';
 
 const mockUser = {
   user_key: 1,

@@ -1,17 +1,18 @@
 import {
-  Injectable,
-  ConflictException,
-  NotFoundException,
   BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UsersService } from './users.service';
 import { JwtService } from '@nestjs/jwt';
-import { hashPassword, comparePassword } from 'src/common/utils/bcrypt.utils';
-import { LoginDto } from '../dto/login.dto';
-import { DataSource } from 'typeorm';
-import { UserSkinRelationsService } from './user-skin-relations.service';
+import { comparePassword, hashPassword } from 'src/common/utils/bcrypt.utils';
 import { User } from 'src/modules/users/entities/user.entity';
+import { DataSource } from 'typeorm';
+
+import { CreateUserDto } from '../dto/create-user.dto';
+import { LoginDto } from '../dto/login.dto';
+import { UserSkinRelationsService } from './user-skin-relations.service';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class AuthService {

@@ -1,7 +1,9 @@
 import 'reflect-metadata';
-import { Entity, PrimaryColumn, JoinColumn, ManyToOne } from 'typeorm';
-import { Routine } from './routine.entity';
+
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+
 import { Tag } from '../../tags/entity/tag.entity';
+import { Routine } from './routine.entity';
 
 @Entity('routine_tag_relation')
 export class RoutineTagRelation {

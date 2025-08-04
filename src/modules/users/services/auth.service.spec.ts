@@ -1,14 +1,14 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from './auth.service';
-import { UsersService } from './users.service';
-import { Gender } from 'src/common/enum/gender.enum';
 import { JwtService } from '@nestjs/jwt';
-import { DataSource, EntityManager } from 'typeorm';
-import { UserSkinRelationsService } from './user-skin-relations.service';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { User } from 'src/modules/users/entities/user.entity';
-
+import { Test, TestingModule } from '@nestjs/testing';
+import { Gender } from 'src/common/enum/gender.enum';
 import * as bcryptUtils from 'src/common/utils/bcrypt.utils';
+import { User } from 'src/modules/users/entities/user.entity';
+import { DataSource, EntityManager } from 'typeorm';
+
+import { CreateUserDto } from '../dto/create-user.dto';
+import { AuthService } from './auth.service';
+import { UserSkinRelationsService } from './user-skin-relations.service';
+import { UsersService } from './users.service';
 
 describe('AuthService', () => {
   let service: AuthService;

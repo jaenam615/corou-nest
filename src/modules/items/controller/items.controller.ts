@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { ItemsService } from '../service/items.service';
 import { ApiOperation } from '@nestjs/swagger';
-import { CreateItemDto } from '../dto/createItem.dto';
+
 import { Order } from '../../../common/enum/order.enum';
+import { CreateItemDto } from '../dto/createItem.dto';
+import { ItemsService } from '../service/items.service';
 
 @Controller('items')
 export class ItemsController {
@@ -21,7 +22,7 @@ export class ItemsController {
         message: '아이템 등록에 성공했습니다.',
         data: item,
       };
-    } catch (error) {
+    } catch {
       return {
         success: false,
         message: '아이템 등록에 실패했습니다.',
@@ -54,7 +55,7 @@ export class ItemsController {
         message: '모든 아이템 조회에 성공했습니다.',
         data: items,
       };
-    } catch (error) {
+    } catch {
       return {
         success: false,
         message: '모든 아이템 조회에 실패했습니다.',
@@ -75,7 +76,7 @@ export class ItemsController {
         message: '아이템 검색에 성공했습니다.',
         data: items,
       };
-    } catch (error) {
+    } catch {
       return {
         success: false,
         message: '아이템 검색에 실패했습니다.',

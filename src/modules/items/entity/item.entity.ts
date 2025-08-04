@@ -1,15 +1,10 @@
 import 'reflect-metadata';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToOne,
-  JoinColumn,
-  OneToMany,
-} from 'typeorm';
-import { Review } from '../../reviews/entity/review.entity';
-import { OrderDetail } from '../../orders/entity/order-detail.entity';
+
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Cart } from '../../carts/entity/cart.entity';
+import { OrderDetail } from '../../orders/entity/order-detail.entity';
+import { Review } from '../../reviews/entity/review.entity';
 
 @Entity('item')
 export class Item {
