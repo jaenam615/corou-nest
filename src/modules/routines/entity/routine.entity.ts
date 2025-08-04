@@ -1,3 +1,4 @@
+import { User } from 'src/modules/users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -6,12 +7,12 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import { Gender } from '../../../common/enum/gender.enum';
 import { Review } from '../../reviews/entity/review.entity';
 import { RoutineDetail } from './routine-detail.entity';
 import { RoutineSkinRelation } from './routine-skin-relation.entity';
 import { RoutineTagRelation } from './routine-tag-relation.entity';
-import { User } from 'src/modules/users/entities/user.entity';
-import { Gender } from '../../../common/enum/gender.enum';
 
 @Entity('routine')
 export class Routine {

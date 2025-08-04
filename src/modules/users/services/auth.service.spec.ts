@@ -1,18 +1,21 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from './auth.service';
-import { UsersService } from './users.service';
-import { Gender } from '../../../common/enum/gender.enum';
 import { JwtService } from '@nestjs/jwt';
-import { DataSource } from 'typeorm';
-import { UserSkinRelationsService } from './user-skin-relations.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { Gender } from 'src/common/enum/gender.enum';
+import * as bcryptUtils from 'src/common/utils/bcrypt.utils';
+import { User } from 'src/modules/users/entities/user.entity';
+import { DataSource, EntityManager } from 'typeorm';
+
 import { CreateUserDto } from '../dto/create-user.dto';
+import { AuthService } from './auth.service';
+import { UserSkinRelationsService } from './user-skin-relations.service';
+import { UsersService } from './users.service';
 
 describe('AuthService', () => {
   let service: AuthService;
   let fakeUsersService: Partial<UsersService>;
   let fakeUserSkinRelationsService: Partial<UserSkinRelationsService>;
   let fakeJwtService: Partial<JwtService>;
-  let fakeDataSource: Partial<DataSource>;
+  let dataSource: Partial<DataSource>;
 
   beforeEach(async () => {
     fakeUsersService = {
@@ -21,9 +24,10 @@ describe('AuthService', () => {
       create: jest.fn().mockResolvedValue({
         user_key: 1,
         email: 'test@example.com',
-        password: 'password',
-        username: 'username',
-        birth_date: new Date(),
+        password: 'hashed_pw',
+        username: 'tester',
+        birth_date: new Date('1990-01-01'),
+        attributes: [1, 2],
         gender: Gender.M,
       }),
     };
@@ -32,21 +36,7 @@ describe('AuthService', () => {
       addUserSkinRelation: jest.fn().mockResolvedValue({}),
     };
 
-    fakeJwtService = {
-      sign: jest.fn(() => 'fake-jwt-token'),
-      verify: jest.fn().mockImplementation(
-        (token: string) =>
-          ({
-            user_key: 1,
-            email: 'jae@corou.shop',
-            username: 'username',
-            birth_date: new Date(),
-            gender: Gender.M,
-          }) as any,
-      ),
-    };
-
-    fakeDataSource = {
+    dataSource = {
       transaction: jest.fn().mockImplementation(async (runInTransaction) => {
         return await runInTransaction({
           manager: {
@@ -73,7 +63,7 @@ describe('AuthService', () => {
         },
         {
           provide: DataSource,
-          useValue: fakeDataSource,
+          useValue: dataSource,
         },
       ],
     }).compile();
@@ -85,18 +75,65 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a new user', async () => {
-    const createUserDto: CreateUserDto = {
-      email: 'jest@corou.shop',
-      password: 'password123',
-      username: 'new',
-      birth_date: new Date(),
-      gender: Gender.M,
-      attributes: [1, 7, 10, 11],
-    };
+  describe('register', () => {
+    it('should create a user and relate attributes', async () => {
+      // 👇 raw password (before hashing)
+      const rawPassword = 'plain_pw';
+      const hashedPassword = 'hashed_pw';
 
-    const result = await service.register(createUserDto);
+      const mockCreateUserDto: CreateUserDto = {
+        email: 'test@example.com',
+        password: rawPassword,
+        username: 'tester',
+        birth_date: new Date('1990-01-01'),
+        gender: Gender.M,
+        attributes: [1, 2],
+      };
 
-    expect(result).toBeDefined();
+      const savedUser: User = {
+        user_key: 1,
+        ...mockCreateUserDto,
+        password: hashedPassword,
+      } as User;
+
+      jest.spyOn(bcryptUtils, 'hashPassword').mockResolvedValue(hashedPassword);
+
+      (dataSource.transaction as jest.Mock).mockImplementation(
+        async (_isolationOrCallback, maybeCallback?) => {
+          const callback =
+            typeof _isolationOrCallback === 'function'
+              ? _isolationOrCallback
+              : maybeCallback;
+
+          const mockManager: Partial<EntityManager> = {
+            save: jest.fn().mockResolvedValue(savedUser),
+          };
+
+          return await callback(mockManager as EntityManager);
+        },
+      );
+
+      const result = await service.register(mockCreateUserDto);
+
+      expect(bcryptUtils.hashPassword).toHaveBeenCalledWith(rawPassword);
+      expect(fakeUsersService.create).toHaveBeenCalledWith(
+        {
+          ...mockCreateUserDto,
+          password: hashedPassword,
+        },
+        expect.any(Object),
+      );
+      expect(
+        fakeUserSkinRelationsService.addUserSkinRelation,
+      ).toHaveBeenCalledTimes(2);
+      expect(
+        fakeUserSkinRelationsService.addUserSkinRelation,
+      ).toHaveBeenCalledWith(1, 1, expect.any(Object));
+      expect(
+        fakeUserSkinRelationsService.addUserSkinRelation,
+      ).toHaveBeenCalledWith(1, 2, expect.any(Object));
+
+      expect(result).toEqual(savedUser);
+    });
   });
 });

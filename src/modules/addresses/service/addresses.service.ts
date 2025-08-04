@@ -1,9 +1,10 @@
-import { Repository } from 'typeorm';
-import { Address } from '../entity/address.entity';
-import { UsersService } from 'src/modules/users/services/users.service';
-import { BaseAddressDto } from '../dto/baseAddress.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UsersService } from 'src/modules/users/services/users.service';
+import { Repository } from 'typeorm';
+
+import { BaseAddressDto } from '../dto/baseAddress.dto';
+import { Address } from '../entity/address.entity';
 
 @Injectable()
 export class AddressesService {
@@ -62,7 +63,10 @@ export class AddressesService {
   }
 
   // 사용자 주소 조회
-  async getOneAddress(user_key: number, address_key: number): Promise<Address> {
+  async getOneAddress(
+    _user_key: number,
+    address_key: number,
+  ): Promise<Address> {
     const address = await this.addressRepository.findOneBy({ address_key });
     if (!address) {
       throw new NotFoundException('해당 주소를 찾을 수 없습니다.');

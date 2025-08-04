@@ -1,13 +1,14 @@
+import 'reflect-metadata';
+
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  OneToOne,
+  Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import 'reflect-metadata';
+
 import { Item } from '../../items/entity/item.entity';
 import { ItemOrder } from './item-order.entity';
 

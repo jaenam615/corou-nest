@@ -3,23 +3,21 @@ import {
   Controller,
   Delete,
   Get,
-  Headers,
   Param,
   Post,
   Put,
   Query,
-  Req,
   Request,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { RoutinesService } from '../service/routines.service';
-import { RoutineDetailsService } from '../service/routine-details.service';
-import { BaseRoutineDto } from '../dto/baseRoutine.dto';
-import { JwtService } from '@nestjs/jwt';
 import { ApiOperation } from '@nestjs/swagger';
-import { Order } from '../../../common/enum/order.enum';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+
+import { Order } from '../../../common/enum/order.enum';
+import { BaseRoutineDto } from '../dto/baseRoutine.dto';
+import { RoutineDetailsService } from '../service/routine-details.service';
+import { RoutinesService } from '../service/routines.service';
 
 @Controller('routines')
 export class RoutinesController {

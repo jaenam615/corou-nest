@@ -1,13 +1,15 @@
 import 'reflect-metadata';
+
+import { User } from 'src/modules/users/entities/user.entity';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
+  Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from 'src/modules/users/entities/user.entity';
+
 import { Address } from '../../addresses/entity/address.entity';
 import { OrderDetail } from './order-detail.entity';
 

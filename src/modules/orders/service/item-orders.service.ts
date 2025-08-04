@@ -1,13 +1,12 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OrderDetail } from '../entity/order-detail.entity';
-import { DataSource, EntityManager, Repository } from 'typeorm';
-import { ItemsService } from 'src/modules/items/service/items.service';
-import { ItemOrder } from '../entity/item-order.entity';
-import { UsersService } from 'src/modules/users/services/users.service';
 import { AddressesService } from 'src/modules/addresses/service/addresses.service';
-import { OrderDetailsService } from './order-details.service';
 import { CartsService } from 'src/modules/carts/service/carts.service';
+import { UsersService } from 'src/modules/users/services/users.service';
+import { DataSource, Repository } from 'typeorm';
+
+import { ItemOrder } from '../entity/item-order.entity';
+import { OrderDetailsService } from './order-details.service';
 
 @Injectable()
 export class ItemOrdersService {
@@ -79,6 +78,7 @@ export class ItemOrdersService {
     order_key: number,
     user_key: number,
   ): Promise<ItemOrder> {
+    console.log(user_key);
     const itemOrder = await this.itemOrderRepository.findOne({
       where: { order_key },
       relations: ['order_details'],

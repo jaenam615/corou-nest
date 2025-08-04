@@ -1,14 +1,9 @@
 import 'reflect-metadata';
-import {
-  Entity,
-  PrimaryColumn,
-  Column,
-  OneToOne,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
-import { Routine } from './routine.entity';
+
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+
 import { Item } from '../../items/entity/item.entity';
+import { Routine } from './routine.entity';
 
 @Entity('routine_detail')
 export class RoutineDetail {

@@ -1,57 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
-import { User } from 'src/modules/users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
-import { hashPassword } from 'src/common/utils/bcrypt.utils';
-import { UserSkinRelationsService } from 'src/modules/users/services/user-skin-relations.service';
+import { User } from 'src/modules/users/entities/user.entity';
+import { EntityManager, Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-    private userSkinRelationService: UserSkinRelationsService,
-    private dataSource: DataSource,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
-    const hashedPassword = await hashPassword(createUserDto.password);
-
-    return this.dataSource.transaction(async (manager) => {
-      const user = await manager.save(User, {
-        email: createUserDto.email,
-        password: hashedPassword,
-        username: createUserDto.username,
-        birth_date: createUserDto.birth_date,
-        gender: createUserDto.gender,
-      });
-      await Promise.all(
-        createUserDto.attributes.map((attr_key) =>
-          this.userSkinRelationService.addUserSkinRelation(
-            user.user_key,
-            attr_key,
-            manager,
-          ),
-        ),
-      );
-      return user;
-    });
+  async create(
+    userInput: CreateUserDto,
+    manager: EntityManager,
+  ): Promise<User> {
+    return await manager.save(User, userInput);
   }
 
-  findOneByKey(user_key: number) {
+  findOneByKey(user_key: number): Promise<User> {
     return this.usersRepository.findOneBy({ user_key });
   }
 
-  findOneByEmail(email: string) {
+  findOneByEmail(email: string): Promise<User> {
     return this.usersRepository.findOneBy({ email });
   }
 
-  findOneByUsername(username: string) {
+  findOneByUsername(username: string): Promise<User> {
     return this.usersRepository.findOneBy({ username });
   }
 
-  findAllUsers() {
+  findAllUsers(): Promise<User[]> {
     return this.usersRepository.find();
   }
 }

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PortoneService } from './service/portone.service';
+
 import { PaymentsController } from './controller/payments.controller';
+import { PortoneService } from './service/portone.service';
 
 @Module({
   providers: [PortoneService],

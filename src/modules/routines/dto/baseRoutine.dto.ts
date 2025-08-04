@@ -1,11 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsString,
+  IsArray,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
-  IsEnum,
-  IsArray,
+  IsString,
 } from 'class-validator';
+
 import { Gender } from '../../../common/enum/gender.enum';
 import { RoutineDetail } from '../entity/routine-detail.entity';
 

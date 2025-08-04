@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
-import { Routine } from '../entity/routine.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UsersService } from 'src/modules/users/services/users.service';
-import { RoutineTagRelationsService } from './routine-tag-relations.service';
 import { TagsService } from 'src/modules/tags/service/tags.service';
+import { UsersService } from 'src/modules/users/services/users.service';
+import { DataSource, Repository } from 'typeorm';
+
 import { BaseRoutineDto } from '../dto/baseRoutine.dto';
+import { Routine } from '../entity/routine.entity';
 import { RoutineDetailsService } from './routine-details.service';
 import { RoutineSkinRelationsService } from './routine-skin-relations.service';
+import { RoutineTagRelationsService } from './routine-tag-relations.service';
 
 @Injectable()
 export class RoutinesService {
@@ -43,9 +44,6 @@ export class RoutinesService {
     }
     console.log(details);
     return this.dataSource.transaction(async (transactionalEntityManager) => {
-      {
-        isolation: 'READ UNCOMMITTED';
-      }
       const newRoutine = await transactionalEntityManager.save(Routine, {
         user,
         routine_name,
@@ -190,9 +188,6 @@ export class RoutinesService {
       details,
     } = baseRoutineDto;
     return this.dataSource.transaction(async (transactionalEntityManager) => {
-      {
-        isolation: 'READ COMMITTED';
-      }
       const foundRoutine = await this.routineRepository.findOne({
         where: { routine_key },
         relations: ['user'],

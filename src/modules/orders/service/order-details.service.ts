@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OrderDetail } from '../entity/order-detail.entity';
-import { EntityManager, Repository } from 'typeorm';
 import { ItemsService } from 'src/modules/items/service/items.service';
+import { EntityManager, Repository } from 'typeorm';
+
+import { OrderDetail } from '../entity/order-detail.entity';
 
 @Injectable()
 export class OrderDetailsService {

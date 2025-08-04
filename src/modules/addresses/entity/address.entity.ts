@@ -1,14 +1,7 @@
 import 'reflect-metadata';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  OneToOne,
-} from 'typeorm';
+
 import { User } from 'src/modules/users/entities/user.entity';
-import { ItemOrder } from '../../orders/entity/item-order.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('address')
 export class Address {

@@ -7,11 +7,11 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { ItemOrdersService } from '../service/item-orders.service';
-import { OrderDetailsService } from '../service/order-details.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+
 import { CreateOrderDto } from '../dto/createOrder.dto';
+import { ItemOrdersService } from '../service/item-orders.service';
 
 @Controller('orders')
 export class OrdersController {

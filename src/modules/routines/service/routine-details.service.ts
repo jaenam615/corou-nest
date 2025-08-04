@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityManager, Repository } from 'typeorm';
-import { RoutineDetail } from '../entity/routine-detail.entity';
 import { ItemsService } from 'src/modules/items/service/items.service';
+import { EntityManager, Repository } from 'typeorm';
+
+import { RoutineDetail } from '../entity/routine-detail.entity';
 
 @Injectable()
 export class RoutineDetailsService {
@@ -66,6 +67,7 @@ export class RoutineDetailsService {
     description: string,
     transactionalEntityManager: EntityManager,
   ) {
+    console.log(transactionalEntityManager);
     const routineDetail = await this.routineDetailsRepository.findOne({
       where: { step_number, routine_key },
       relations: ['item'],

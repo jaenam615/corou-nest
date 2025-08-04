@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsEmail, IsNotEmpty, IsDate, IsEnum } from 'class-validator';
-import { Gender } from '../../../common/enum/gender.enum';
+import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { Gender } from 'src/common/enum/gender.enum';
 
 export class CreateUserDto {
   @IsEmail()
@@ -47,4 +47,8 @@ export class CreateUserDto {
     example: [1, 7, 10, 11],
   })
   attributes: number[];
+
+  constructor(init?: Partial<CreateUserDto>) {
+    Object.assign(this, init);
+  }
 }
