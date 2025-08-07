@@ -9,7 +9,7 @@ import { UserSkinRelationsService } from 'src/modules/users/services/user-skin-r
 import { UsersService } from 'src/modules/users/services/users.service';
 
 import { AddressesModule } from '../addresses/addresses.module';
-import { Address } from '../addresses/entity/address.entity';
+import { Address } from 'src/modules/addresses/entities/address.entity';
 
 @Module({
   imports: [

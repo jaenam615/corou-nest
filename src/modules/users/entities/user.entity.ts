@@ -1,7 +1,7 @@
 import { Gender } from 'src/common/enum/gender.enum';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Address } from '../../addresses/entity/address.entity';
+import { Address } from 'src/modules/addresses/entities/address.entity';
 import { Cart } from '../../carts/entity/cart.entity';
 import { ItemOrder } from '../../orders/entity/item-order.entity';
 import { Review } from '../../reviews/entity/review.entity';

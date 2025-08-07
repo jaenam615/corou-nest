@@ -6,7 +6,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AddressesModule } from './modules/addresses/addresses.module';
-import { Address } from './modules/addresses/entity/address.entity';
+import { Address } from 'src/modules/addresses/entities/address.entity';
 import { CartsModule } from './modules/carts/carts.module';
 import { Cart } from './modules/carts/entity/cart.entity';
 import { Item } from './modules/items/entity/item.entity';

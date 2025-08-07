@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { AddressesService } from 'src/modules/addresses/service/addresses.service';
+import { AddressesService } from 'src/modules/addresses/services/addresses.service';
 import { AuthService } from 'src/modules/users/services/auth.service';
 import { UsersService } from 'src/modules/users/services/users.service';
 

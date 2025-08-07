@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { AuthService } from 'src/modules/users/services/auth.service';
-import { AddressesService } from 'src/modules/addresses/service/addresses.service';
+import { AddressesService } from 'src/modules/addresses/services/addresses.service';
 import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
 
 describe('UsersController', () => {
