@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Address } from '../../addresses/entity/address.entity';
+import { Address } from 'src/modules/addresses/entities/address.entity';
 import { OrderDetail } from './order-detail.entity';
 
 @Entity('item_order')

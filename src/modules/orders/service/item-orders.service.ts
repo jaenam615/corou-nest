@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AddressesService } from 'src/modules/addresses/service/addresses.service';
+import { AddressesService } from 'src/modules/addresses/services/addresses.service';
 import { CartsService } from 'src/modules/carts/service/carts.service';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { DataSource, Repository } from 'typeorm';
